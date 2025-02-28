@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scoring-model-deployment
+  labels:
+    app: scoring-model
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: scoring-model
+  template:
+    metadata:
+      labels:
+        app: scoring-model
+    spec:
+      containers:
+      - name: credit-scoring-fastapi
+        image: stanislavlia/cred_scoring
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: "2"
+            memory: "2Gi"
+          limits:
+            cpu: "2"
+            memory: "2Gi"
