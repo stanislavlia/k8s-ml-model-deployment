@@ -1,0 +1,209 @@
+{
+    "annotations": {
+      "list": []
+    },
+    "editable": true,
+    "gnetId": null,
+    "graphTooltip": 0,
+    "id": null,
+    "iteration": 1640000000000,
+    "links": [],
+    "panels": [
+      {
+        "datasource": {
+          "uid": "prometheus",
+          "type": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {},
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 0
+        },
+        "id": 1,
+        "title": "HTTP Requests Total (/prediction)",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "http_requests_total{handler=\"/prediction\",method=\"POST\",status=\"2xx\"}",
+            "legendFormat": "{{handler}} {{method}}",
+            "refId": "A",
+            "datasource": {
+              "uid": "prometheus",
+              "type": "prometheus"
+            }
+          }
+        ]
+      },
+      {
+        "datasource": {
+          "uid": "prometheus",
+          "type": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {},
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 0
+        },
+        "id": 2,
+        "title": "HTTP 95th Percentile Latency",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket{handler=\"/prediction\",method=\"POST\"}[5m])) by (le))",
+            "legendFormat": "95th Percentile",
+            "refId": "A",
+            "datasource": {
+              "uid": "prometheus",
+              "type": "prometheus"
+            }
+          }
+        ]
+      },
+      {
+        "datasource": {
+          "uid": "prometheus",
+          "type": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {},
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 8
+        },
+        "id": 3,
+        "title": "Process Resident Memory (bytes)",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "process_resident_memory_bytes",
+            "legendFormat": "Resident Memory",
+            "refId": "A",
+            "datasource": {
+              "uid": "prometheus",
+              "type": "prometheus"
+            }
+          }
+        ]
+      },
+      {
+        "datasource": {
+          "uid": "prometheus",
+          "type": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {},
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 8
+        },
+        "id": 4,
+        "title": "Process CPU Seconds Total",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "process_cpu_seconds_total",
+            "legendFormat": "CPU Time",
+            "refId": "A",
+            "datasource": {
+              "uid": "prometheus",
+              "type": "prometheus"
+            }
+          }
+        ]
+      },
+      {
+        "datasource": {
+          "uid": "prometheus",
+          "type": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {},
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 16
+        },
+        "id": 5,
+        "title": "Python GC Collections Total",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "sum(python_gc_collections_total) by (generation)",
+            "legendFormat": "Gen {{generation}}",
+            "refId": "A",
+            "datasource": {
+              "uid": "prometheus",
+              "type": "prometheus"
+            }
+          }
+        ]
+      },
+      {
+        "datasource": {
+          "uid": "prometheus",
+          "type": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {},
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 16
+        },
+        "id": 6,
+        "title": "HTTP Request Size Sum (/prediction)",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "http_request_size_bytes_sum{handler=\"/prediction\"}",
+            "legendFormat": "Request Size",
+            "refId": "A",
+            "datasource": {
+              "uid": "prometheus",
+              "type": "prometheus"
+            }
+          }
+        ]
+      }
+    ],
+    "schemaVersion": 30,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": []
+    },
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "Scoring Model Dashboard",
+    "uid": "scoring-model-dashboard",
+    "version": 1
+  }
+  

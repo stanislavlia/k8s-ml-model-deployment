@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+spec:
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+      - name: grafana-monitoring
+        image: grafana/grafana
+        env:
+          - name: GF_SECURITY_ADMIN_PASSWORD
+            value: "admin"
+          - name: GF_SECURITY_ADMIN_USER
+            value: "admin"
+          
+        resources:
+          limits:
+            memory: "1Gi"
+            cpu: "2"
+        ports:
+        - containerPort: 3000
+        volumeMounts:
+          - name: grafana-conf-volume
+            mountPath: /var/lib/grafana/dashboards/grafana_dashboard.json
+            subPath: grafana_dashboard.json
+
+          - name: provisioning-volume
+            mountPath: /etc/grafana/provisioning/dashboards
+
+          - name: provisioning-datasources-volume
+            mountPath: /etc/grafana/provisioning/datasources
+
+      volumes:
+        - name: grafana-conf-volume
+          configMap:
+            name: grafana-config
+          
+        - name: provisioning-volume
+          configMap:
+            name: grafana-provis-config
+
+        - name: provisioning-datasources-volume
+          configMap:
+            name: grafana-datasources
