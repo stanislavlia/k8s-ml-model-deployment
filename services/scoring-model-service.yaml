@@ -3,6 +3,7 @@ kind: Service
 metadata:
   name: scoring-model
 spec:
+  type: LoadBalancer  # This line exposes the service externally
   selector:
     app: scoring-model
   ports:
