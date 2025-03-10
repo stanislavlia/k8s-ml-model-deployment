@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: scoring-ingress
+  labels:
+    name: scoring-ingress
+spec:
+  rules:
+  - host: scoring-model-homecredit.com
+    http:
+      paths:
+      # Requests starting with /scoring go to the scoring-model service.
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: scoring-model
+            port:
+              number: 80
+      # All other requests (i.e. the root path and everything else) go to Grafana.
+      - pathType: Prefix
+        path: "/grafana/"
+        backend:
+          service:
+            name: grafana-service
+            port:
+              number: 3000
