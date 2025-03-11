@@ -1,0 +1,13 @@
+#For Digital Ocean only, to attach external ip (Load balancer) to service
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: scoring-model
+spec:
+  type: LoadBalancer
+  selector:
+    app: scoring-model
+  ports:
+  - port: 80
+    protocol: TCP

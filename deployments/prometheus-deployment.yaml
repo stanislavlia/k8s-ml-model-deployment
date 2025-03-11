@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: prometheus
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: prometheus
@@ -15,9 +16,12 @@ spec:
       - name: prometheus-monitoring
         image: prom/prometheus
         resources:
+          requests:
+            memory: "256Mi"  # Lower requested memory
+            cpu: "500m"      # Lower requested CPU (500m = 0.5 CPU)
           limits:
-            memory: "1Gi"
-            cpu: "2"
+            memory: "0.5Gi"
+            cpu: "1"
         ports:
         - containerPort: 9090
         volumeMounts:

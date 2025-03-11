@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: grafana
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: grafana
@@ -25,9 +26,12 @@ spec:
             value: "true"
           
         resources:
+          requests:
+            memory: "256Mi"  # Lower requested memory
+            cpu: "500m"      # Lower requested CPU (500m = 0.5 CPU)
           limits:
-            memory: "1Gi"
-            cpu: "2"
+            memory: "0.5Gi"
+            cpu: "1"
         ports:
         - containerPort: 3000
         volumeMounts:
